@@ -21,45 +21,76 @@
 					<h3 class="panel-title">役男家屬狀況</h3>
 				</div>
 				<div class="panel-body">
-					<form class="form-inline">
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="member-value">稱謂<span class="caret"></span></button>
-								<ul class="dropdown-menu" role="menu" id="member">
-									<li><a href="#">父</a></li>
-									<li><a href="#">母</a></li>
-									<li><a href="#">兄</a></li>
-									<li><a href="#">弟</a></li>
-									<li><a href="#">姊</a></li>
-									<li><a href="#">妹</a></li>
-									<li><a href="#">子</a></li>
-									<li><a href="#">女</a></li>
-									<li><a href="#">其他</a></li>
-								</ul>
+					<div class="row">
+						<div class="col-xs-1">
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="member-value">稱謂<span class="caret"></span></button>
+									<ul class="dropdown-menu" role="menu" id="member">
+										<li><a href="#">父親</a></li>
+										<li><a href="#">母親</a></li>
+										<li><a href="#">哥哥</a></li>
+										<li><a href="#">弟弟</a></li>
+										<li><a href="#">姊姊</a></li>
+										<li><a href="#">妹妹</a></li>
+										<li><a href="#">兒子</a></li>
+										<li><a href="#">女兒</a></li>
+										<li><a href="#">其他</a></li>
+									</ul>
+								</div>
 							</div>
 						</div>
-						<input type="text" class="form-control" id="birthday" placeholder="生日(104/1/1)">
-						<div class="input-group">
-							<div class="input-group-btn">
-								<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="job-value">職業<span class="caret"></span></button>
-								<ul class="dropdown-menu" role="menu" id="job">
-									<li><a href="#">在職</a></li>
-									<li><a href="#">在學</a></li>
-									<li><a href="#">無</a></li>
-								</ul>
+						<div class="col-xs-2">
+							<div class="form-group" id="birthday">
+								<input type="text" class="form-control" id="birthday-value" placeholder="出生年次(EX:50)">
 							</div>
-							<input type="text" class="form-control" id="salary" placeholder="每月薪資">
 						</div>
-						<div class="checkbox">
-							<label>
-								<input type="checkbox"> 領有殘障手冊或重大傷病卡
-							</label>
+						<div class="col-xs-3">
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="job-value">職業<span class="caret"></span></button>
+									<ul class="dropdown-menu" role="menu" id="job">
+										<li><a href="#">在職</a></li>
+										<li><a href="#">在學</a></li>
+										<li><a href="#">無業</a></li>
+									</ul>
+								</div>
+								<div class="form-group" id="salary">
+									<input type="text" class="form-control" id="salary-value" placeholder="每月薪資(EX:22000)" disabled>
+								</div>
+							</div>
 						</div>
-						<button type="submit" class="btn btn-primary">加入成員</button>
-					</form>
+						<div class="col-xs-3">
+							<div class="checkbox">
+								<label>
+									<input type="checkbox"> 領有殘障手冊或重大傷病卡
+								</label>
+							</div>
+						</div>
+						<div class="col-xs-2">
+							<button class="btn btn-primary" id="addmember">加入成員</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="alert alert-danger" role="alert" style="margin:0;display:none;" id="errormsg"></div>
+						</div>
+					</div>
 				</div>
 			</div>
-
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>家屬</th>
+						<th>年齡</th>
+						<th>全年總收入</th>
+						<th>領有殘障手冊或重大傷病卡</th>
+						<th>備註</th>
+					</tr>
+				</thead>
+				<tbody>
+				</tbody>
+			</table>
 		</div>
 		<script src="./js/index.js"></script>
 	</body>
