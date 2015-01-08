@@ -42,8 +42,15 @@ $('#addmember').click(function() {
 		displayError(false, {'id':'salary'});
 	}
 
-	// add to table
-	
+	var disability = $('#disability').prop('checked');
+	var comment = '';
+
+	// append to table
+	$('#family tbody:last').after('<tr><td>' + member + '</td>'
+					+ '<td>' + age + '</td>'
+					+ '<td>' + salary * 12 + '</td>'
+					+ '<td>' + disability ? '有' : '無' + '</td>'
+					+ '<td>' + comment + '</td></tr>');
 
 	// clear input area
 	clearValue();
@@ -55,6 +62,7 @@ function clearValue() {
 	$('#birthday-value').val('');
 	$('#salary-value').val('');
 	$('#salary-value').attr('disabled', true);
+	$('#disability').prop('checked', false);
 	$('#errormsg').hide();
 }
 
