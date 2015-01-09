@@ -45,6 +45,7 @@ $('#addmember').click(function() {
 	var disability = $('#disability').prop('checked');
 
 	// process comment
+	
 
 	var comment = '';
 
