@@ -23,7 +23,7 @@ $('#addmember').click(function() {
 	}
 
 	var age = new Date().getFullYear() - (!isNaN($('#birthday-value').val()) && $('#birthday-value').val() != "" ? 1911 + parseInt($('#birthday-value').val()) : new Date().getFullYear());
-	if (age == 0) {
+	if (age <= 0) {
 		displayError(true, {'id':'birthday', 'msg':'出生年次填寫錯誤！'});
 		return false;
 	} else {
@@ -43,17 +43,27 @@ $('#addmember').click(function() {
 	}
 
 	var disability = $('#disability').prop('checked');
+
+	// process comment
+
 	var comment = '';
 
 	// append to table
-	$('#family tbody').append('<tr><td>' + member + '</td>'
+	var row = $('<tr' + (comment == '' ? '' : ' class="info"') + '><td>' + member + '</td>'
 					+ '<td>' + age + '</td>'
 					+ '<td>' + salary * 12 + '</td>'
 					+ '<td>' + (disability ? '有' : '無') + '</td>'
-					+ '<td>' + comment + '</td></tr>');
+					+ '<td>' + comment + '</td>'
+					+ '<td><button type="button" class="btn btn-default" aria-label="Left Align" id="removemember"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>').hide();
+	$('#family tbody').append(row);
+	row.fadeIn('slow');
 
 	// clear input area
 	clearValue();
+});
+
+$('body').delegate('#removemember', 'click', function() {
+	$(this).closest('tr').remove();
 });
 
 function clearValue() {
