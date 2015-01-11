@@ -14,6 +14,11 @@ $('#job li').click(function() {
 	}
 });
 
+$('#other li').click(function() {
+	var value = this.children[0].text.length > 20 ? this.children[0].text.substring(0, 30) + '...' : this.children[0].text;
+	$('#other-value').text(value).append('<span class="caret"></span>');
+});
+
 $('#addmember').click(function() {
 	// validation
 	var member = $('#member-value').text();
@@ -42,24 +47,27 @@ $('#addmember').click(function() {
 		displayError(false, {'id':'salary'});
 	}
 
-	var disability = $('#disability').prop('checked');
+	//var disability = $('#disability').prop('checked');
+	var other = $('#other-value').text() == '特殊狀況' ? '' : $('#other-value').text();
 
 	// process comment
 	var comment = '';
 	if (isNaN(salary)) {
 		if (job == '在學') {
-			comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule6">第6條</a> 第五款 就讀大學校院博士班、空中大學、空中專科、進修補習學校、遠距教學以外之在學學生，致不能工作。"，不計算其工作收入';
+			comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule6" target="_blank">第6條</a> 第五款 就讀大學校院博士班、空中大學、空中專科、進修補習學校、遠距教學以外之在學學生，致不能工作。"，不計算其工作收入';
 		} else if (job == '無業') {
 			if (age > 55 || age < 16) {
-				comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule6">第6條</a> 第一款 五十五歲以上或十六歲以下而無固定收入。"，不計算其工作收入';
+				comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule6" target="_blank">第6條</a> 第一款 五十五歲以上或十六歲以下而無固定收入。"，不計算其工作收入';
+			} else if (disability) {
+				comment = 'ABC';
 			} else {
 				// TODO: 利用變數取代基本工資
-				comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule7">第7條</a> 役男家屬具有工作能力而未就業者，鄉 (鎮、市、區) 公所應列冊送當地公營職業訓練機構或國民就業輔導單位協助就業，使其自行營生。"，應以基本工資每月$19273核算';
+				comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule7" target="_blank">第7條</a> 役男家屬具有工作能力而未就業者，鄉 (鎮、市、區) 公所應列冊送當地公營職業訓練機構或國民就業輔導單位協助就業，使其自行營生。"，應以基本工資每月$19273核算';
 				salary = 19273 * 12;
 			}
 		}
 	} else if (salary < 19273 * 12) { // TODO: 利用變數取代基本工資
-		comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule4">第4條</a> 第一款 以當年度各行職業薪資證明之實際所得計算；無薪資證明者，依最近一年度之財稅資料所列工作收入核算。但最近一年之財稅資料低於基本工資時，以基本工資核算。';
+		comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule4" target="_blank">第4條</a> 第一款 以當年度各行職業薪資證明之實際所得計算；無薪資證明者，依最近一年度之財稅資料所列工作收入核算。但最近一年之財稅資料低於基本工資時，以基本工資核算。';
 		salary = 19273 * 12;
 	}
 
@@ -68,7 +76,7 @@ $('#addmember').click(function() {
 					+ '<td>' + age + '</td>'
 					+ '<td>' + job + '</td>'
 					+ '<td>' + salary + '</td>'
-					+ '<td>' + (disability ? '有' : '無') + '</td>'
+					+ '<td>' + other + '</td>'
 					+ '<td>' + comment + '</td>'
 					+ '<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" id="removemember"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>').hide();
 	$('#family tbody').append(row);
