@@ -19,6 +19,10 @@ $('#other li').click(function() {
 	$('#other-value').text(value).append('<span class="caret"></span>');
 });
 
+$('#asset li').click(function() {
+	$('#asset-value').text(this.children[0].text).append('<span class="caret"></span>');
+});
+
 $('#addmember').click(function() {
 	// validation
 	var member = $('#member-value').text();
