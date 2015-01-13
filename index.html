@@ -4,8 +4,9 @@
 		<title></title>
 		<script src="./js/jquery-1.11.2.min.js"></script>
 		<script src="./js/bootstrap.min.js"></script>
+		<script src="./js/jquery.PrintArea.js"></script>
 		<link rel="stylesheet" href="./css/bootstrap.min.css">
-		<!-- <link rel="stylesheet" href="./css/bootstrap-theme.min.css"> -->
+		<!-- <link rel="stylesheet" type="text/css" href="./css/PrintArea.css"> -->
 		<link rel="stylesheet" href="./css/index.css">
 		<meta charset="UTF-8">
 	</head>
@@ -22,7 +23,28 @@
 				</div>
 			</div>
 		</nav>
-		<div class="container">
+		<div class="container parea">
+			<div class="row" style="margin-bottom:15px;">
+				<div class="col-xs-2">
+					<div class="input-group">
+						<div class="input-group-btn">
+							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="country-value">請先選擇縣市別<span class="caret"></span></button>
+							<ul class="dropdown-menu" role="menu" id="country-option">
+								<li><a href="#">桃園市</a></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+				<div class="col-xs-8">
+					<ul class="list-unstyled" style="margin:0">
+						<li><small>104年度最低生活費每人每月為<span id="lowestcost">10000</span>元</small></li>
+						<li><small>104年度每月基本工資為<span id="basicsalary">10000</span>元</small></li>
+					</ul>
+				</div>
+				<div class="col-xs-2">
+					<button class="btn btn-primary" id="printpage">列印本頁</button>
+				</div>
+			</div>
 			<div class="panel panel-default">
 				<div class="panel-heading">
 					<h3 class="panel-title">役男家屬狀況</h3>
@@ -52,7 +74,7 @@
 								<input type="text" class="form-control" id="birthday-value" placeholder="出生年次">
 							</div>
 						</div>
-						<div class="col-xs-2">
+						<div class="col-xs-3">
 							<div class="input-group">
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="job-value">職業<span class="caret"></span></button>
@@ -165,24 +187,9 @@
 			<div class="panel panel-default">
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-xs-1">
-							<div class="input-group">
-								<div class="input-group-btn">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="country-value">縣市別<span class="caret"></span></button>
-									<ul class="dropdown-menu" role="menu" id="country-option">
-										<li><a href="#">桃園市</a></li>
-									</ul>
-								</div>
-							</div>
-						</div>
-						<div class="col-xs-5">
-							<p class="text-right" style="margin:0;font-size:24px">
+						<div class="col-xs-11">
+							<p class="text-center" style="margin:0;font-size:24px">
 								<strong>核算結果：<span id="result"></span></strong>
-							</p>
-						</div>
-						<div class="col-xs-5">
-							<p class="text-left" style="margin:0;font-size:24px">
-								<strong><span id="result"></span></strong>
 							</p>
 						</div>
 						<div class="col-xs-1">

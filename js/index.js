@@ -157,6 +157,27 @@ $('body').delegate('#removeasset', 'click', function() {
 	totalAsset();
 });
 
+$('#printpage').click(function() {
+	var mode = "popup";
+	var close = false;
+	var print = "";
+	var extraCss = "";
+
+	$(".PrintArea").each(function(){
+	    print += (print.length > 0 ? "," : "") + "div.PrintArea." + $(this).val();
+	});
+
+	var options = {
+		mode: 'popup',
+		close: false,
+		extraCss: '',
+		retainAttr: [ "class", "id", "style" ],
+		extraHead: ''
+	};
+
+	$(print).printArea(options);
+});
+
 $('#test').click(function() {
 	$.getJSON("./data/standard.json", function(data) {
 		alert(data);
