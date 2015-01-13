@@ -13,11 +13,11 @@
 		<nav class="navbar navbar-default navbar-fixed-top">
 			<div class="container">
 				<div class="navbar-header">
-					<a class="navbar-brand" href="http://rockers7414.github.io/SMSLifeHelp/">SMS Life Help</a>
+					<a class="navbar-brand" href="./index.html">SMS Life Help</a>
 				</div>
 				<div class="collapse navbar-collapse">
 					<ul class="nav navbar-nav">
-						<li><a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html" target="_blank">服兵役役男家屬生活扶助實施辦法</a></li>
+						<li><a href="./lifehelp.html" target="_blank">服兵役役男家屬生活扶助實施辦法</a></li>
 					</ul>
 				</div>
 			</div>
@@ -33,7 +33,7 @@
 							<div class="input-group">
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="member-value">稱謂<span class="caret"></span></button>
-									<ul class="dropdown-menu" role="menu" id="member">
+									<ul class="dropdown-menu" role="menu" id="member-option">
 										<li><a href="#">父親</a></li>
 										<li><a href="#">母親</a></li>
 										<li><a href="#">哥哥</a></li>
@@ -52,11 +52,11 @@
 								<input type="text" class="form-control" id="birthday-value" placeholder="出生年次">
 							</div>
 						</div>
-						<div class="col-xs-2">
+						<div class="col-xs-3">
 							<div class="input-group">
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="job-value">職業<span class="caret"></span></button>
-									<ul class="dropdown-menu" role="menu" id="job">
+									<ul class="dropdown-menu" role="menu" id="job-option">
 										<li><a href="#">在職</a></li>
 										<li><a href="#">在學</a></li>
 										<li><a href="#">無業</a></li>
@@ -71,7 +71,7 @@
 							<div class="input-group">
 								<div class="input-group-btn">
 									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="other-value">特殊狀況<span class="caret"></span></button>
-									<ul class="dropdown-menu" role="menu" id="other">
+									<ul class="dropdown-menu" role="menu" id="other-option">
 										<li><a href="#">身心障礙致不能工作</a></li>
 										<li><a href="#">罹患嚴重傷、病，在三個月內無法痊癒，致不能工作</a></li>
 										<li><a href="#">照顧無法自理生活身心障礙者或罹患嚴重傷、病，在三個月內無法痊癒之扶養親屬，致不能工作</a></li>
@@ -82,13 +82,13 @@
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-2">
+						<div class="col-xs-1">
 							<button class="btn btn-primary" id="addmember">新增</button>
 						</div>
 					</div>
 					<div class="row">
 						<div class="col-xs-12">
-							<div class="alert alert-danger" role="alert" style="margin:0;display:none;" id="errormsg"></div>
+							<div class="alert alert-danger" role="alert" style="margin:0;display:none;" id="errormsg1"></div>
 						</div>
 					</div>
 				</div>
@@ -99,7 +99,7 @@
 						<th class="col-xs-1">家屬</th>
 						<th class="col-xs-1">年齡</th>
 						<th class="col-xs-1">職業</th>
-						<th class="col-xs-1">全年總收入</th>
+						<th class="col-xs-1">年收入</th>
 						<th class="col-xs-1">特殊狀況</th>
 						<th class="col-xs-6">備註</th>
 						<th class="col-xs-1"></th>
@@ -107,8 +107,8 @@
 				</thead>
 				<tfoot>
 					<tr class="active">
-						<th colspan="2">全家全年總收入</th>
-						<td colspan="5" id="sumsalary"></td>
+						<th colspan="3">全家全年總收入</th>
+						<td colspan="4" id="sumsalary">0</td>
 					</tr>
 				</tfoot>
 				<tbody></tbody>
@@ -119,25 +119,28 @@
 				</div>
 				<div class="panel-body">
 					<div class="row">
-						<div class="col-xs-5">
+						<div class="col-xs-6">
 							<div class="input-group">
 								<div class="input-group-btn">
-									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="asset-value">資產類別<span class="caret"></span></button>
-									<ul class="dropdown-menu" role="menu" id="asset">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="asset-type">資產類別<span class="caret"></span></button>
+									<ul class="dropdown-menu" role="menu" id="asset-option">
 										<li><a href="#">動產</a></li>
 										<li><a href="#">不動產</a></li>
 									</ul>
 								</div>
 								<div class="form-group" id="salary">
-									<input type="text" class="form-control" id="salary-value" placeholder="價值">
+									<input type="text" class="form-control" id="asset-value" placeholder="價值">
 								</div>
 							</div>
 						</div>
-						<div class="col-xs-5">
-
-						</div>
-						<div class="col-xs-2">
+						<div class="col-xs-5"></div>
+						<div class="col-xs-1">
 							<button class="btn btn-primary" id="addasset">新增</button>
+						</div>
+					</div>
+					<div class="row" style="margin-top:15px;">
+						<div class="col-xs-12">
+							<div class="alert alert-danger" role="alert" style="margin:0;display:none;" id="errormsg2"></div>
 						</div>
 					</div>
 				</div>
@@ -153,11 +156,46 @@
 				<tfoot>
 					<tr class="active">
 						<th>所有財產總額</th>
-						<td colspan="2" id="sumasset"></td>
+						<td colspan="2" id="sumasset">0</td>
 					</tr>
 				</tfoot>
 				<tbody></tbody>
 			</table>
+			<div class="panel panel-default">
+				<div class="panel-body">
+					<div class="row">
+						<div class="col-xs-1">
+							<div class="input-group">
+								<div class="input-group-btn">
+									<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="country-value">縣市別<span class="caret"></span></button>
+									<ul class="dropdown-menu" role="menu" id="country-option">
+										<li><a href="#">桃園市</a></li>
+									</ul>
+								</div>
+							</div>
+						</div>
+						<div class="col-xs-5">
+							<p class="text-right" style="margin:0;font-size:24px">
+								<strong>核算結果：<span id="result"></span></strong>
+							</p>
+						</div>
+						<div class="col-xs-5">
+							<p class="text-left" style="margin:0;font-size:24px">
+								<strong><span id="result"></span></strong>
+							</p>
+						</div>
+						<div class="col-xs-1">
+							<button class="btn btn-primary" id="test">核算</button>
+						</div>
+					</div>
+					<div class="row">
+						<div class="col-xs-12">
+							<div class="alert alert-warning" role="alert" style="margin:0; margin-top:15px;display:none;">
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
 		</div>
 		<script src="./js/index.js"></script>
 	</body>

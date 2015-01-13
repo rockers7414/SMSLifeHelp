@@ -1,8 +1,8 @@
-$('#member li').click(function() {
+$('#member-option li').click(function() {
 	$('#member-value').text(this.children[0].text).append('<span class="caret"></span>');
 });
 
-$('#job li').click(function() {
+$('#job-option li').click(function() {
 	$('#job-value').text(this.children[0].text).append('<span class="caret"></span>');
 	switch(this.children[0].text) {
 		case '在職':
@@ -10,48 +10,51 @@ $('#job li').click(function() {
 			break;
 		default:
 			$('#salary-value').attr('disabled', true);
-			displayError(false, {'id':'salary'});
+			displayErrorMsg1(false, {'id':'salary'});
 	}
 });
 
-$('#other li').click(function() {
-	var value = this.children[0].text.length > 20 ? this.children[0].text.substring(0, 30) + '...' : this.children[0].text;
+$('#other-option li').click(function() {
+	var value = this.children[0].text.length > 20 ? this.children[0].text.substring(0, 20) + '...' : this.children[0].text;
 	$('#other-value').text(value).append('<span class="caret"></span>');
 });
 
-$('#asset li').click(function() {
-	$('#asset-value').text(this.children[0].text).append('<span class="caret"></span>');
+$('#asset-option li').click(function() {
+	$('#asset-type').text(this.children[0].text).append('<span class="caret"></span>');
+});
+
+$('#country-option li').click(function(){
+	$('#country-value').text(this.children[0].text).append('<span class="caret"></span>');
 });
 
 $('#addmember').click(function() {
 	// validation
 	var member = $('#member-value').text();
 	if (member == '稱謂') {
-		displayError(true, {'msg':'尚未選擇家庭成員！'});
+		displayErrorMsg1(true, {'msg':'尚未選擇家庭成員！'});
 		return false;
 	}
 
 	var age = new Date().getFullYear() - (!isNaN($('#birthday-value').val()) && $('#birthday-value').val() != "" ? 1911 + parseInt($('#birthday-value').val()) : new Date().getFullYear());
 	if (age <= 0) {
-		displayError(true, {'id':'birthday', 'msg':'出生年次填寫錯誤！'});
+		displayErrorMsg1(true, {'id':'birthday', 'msg':'出生年次填寫錯誤！'});
 		return false;
 	} else {
-		displayError(false, {'id':'birthday'});
+		displayErrorMsg1(false, {'id':'birthday'});
 	}
 
 	var job = $('#job-value').text();
 	var salary = parseInt($('#salary-value').val()) * 12;
 	if (job == '職業') {
-		displayError(true, {'msg': '尚未選擇職業！'});
+		displayErrorMsg1(true, {'msg': '尚未選擇職業！'});
 		return false;
 	} else if (job == '在職' && isNaN(salary)) {
-		displayError(true, {'id':'salary', 'msg':'每月薪資填寫錯誤！'});
+		displayErrorMsg1(true, {'id':'salary', 'msg':'每月薪資填寫錯誤！'});
 		return false;
 	} else {
-		displayError(false, {'id':'salary'});
+		displayErrorMsg1(false, {'id':'salary'});
 	}
 
-	//var disability = $('#disability').prop('checked');
 	var other = $('#other-value').text() == '特殊狀況' ? '' : $('#other-value').text();
 
 	// process comment
@@ -106,7 +109,7 @@ $('#addmember').click(function() {
 	row.fadeIn('slow');
 
 	// clear input area
-	clearValue();
+	clearFamilyValue();
 
 	// summary
 	totalSalary();
@@ -117,23 +120,80 @@ $('body').delegate('#removemember', 'click', function() {
 	totalSalary();
 });
 
-function clearValue() {
+$('#addasset').click(function() {
+	// validation
+	var assetType = $('#asset-type').text();
+	if (assetType == '資產類別') {
+		displayErrorMsg2(true, {'msg':'尚未選擇資產類別！'});
+		return false;
+	} else {
+		displayErrorMsg2(false, {});
+	}
+
+	var asset = $('#asset-value').val();
+	if (isNaN(asset) || asset == "") {
+		displayErrorMsg2(true, {'id':'asset-value', 'msg':'資產價值填寫錯誤！'});
+		return false;
+	} else {
+		displayErrorMsg2(false, {'id': 'asset-value'});
+	}
+
+	// append to table
+	var row = $('<tr><td>' + assetType + '</td>'
+			+ '<td>' + asset + '</td>'
+			+ '<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" id="removeasset"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>').hide();
+	$('#allasset tbody').append(row);
+	row.fadeIn('slow');
+
+	// clear input area
+	clearAssetValue();
+
+	// summary
+	totalAsset();
+});
+
+$('body').delegate('#removeasset', 'click', function() {
+	$(this).closest('tr').remove();
+	totalAsset();
+});
+
+$('#test').click(function() {
+
+});
+
+function clearFamilyValue() {
 	$('#member-value').text('稱謂').append('<span class="caret"></span>');
 	$('#job-value').text('職業').append('<span class="caret"></span>');
 	$('#birthday-value').val('');
 	$('#salary-value').val('');
 	$('#salary-value').attr('disabled', true);
 	$('#disability').prop('checked', false);
-	$('#errormsg').hide();
+	$('#errormsg1').hide();
 }
 
-function displayError(b, args) {
+function clearAssetValue() {
+	$('#asset-type').text('資產類別').append('<span class="caret"></span>');
+	$('#asset-value').val('');
+	$('#errormsg2').hide();
+}
+
+function displayErrorMsg1(b, args) {
 	if (b) {
 		$('#' + args['id']).addClass('has-error');
-		$('#errormsg').text(args['msg']).show();
+		$('#errormsg1').text(args['msg']).show();
 	} else {
 		$('#' + args['id']).removeClass('has-error');
-		$('#errormsg').hide();
+		$('#errormsg1').hide();
+	}
+}
+
+function displayErrorMsg2(b, args) {
+	if (b) {
+		$('#' + args['id']).addClass('has-error');
+		$('#errormsg2').text(args['msg']).show();
+	} else {
+		$('#' + args['id']).removeClass('has-error');
+		$('#errormsg2').hide();
 	}
 }
 
@@ -145,4 +205,14 @@ function totalSalary() {
 		}
 	});
 	$('#sumsalary').text(sum);
+}
+
+function totalAsset() {
+	var sum = 0;
+	$('#allasset tbody').find('tr').each(function() {
+		if (!isNaN($(this.cells[1]).text())) {
+			sum += parseInt($(this.cells[1]).text());
+		}
+	});
+	$('#sumasset').text(sum);
 }
