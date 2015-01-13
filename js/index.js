@@ -158,7 +158,9 @@ $('body').delegate('#removeasset', 'click', function() {
 });
 
 $('#test').click(function() {
-
+	$.getJSON("./data/standard.json", function(data) {
+		alert(data);
+	});
 });
 
 function clearFamilyValue() {
