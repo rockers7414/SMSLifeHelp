@@ -21,13 +21,35 @@ $('#other-option li').click(function() {
 
 $('#asset-option li').click(function() {
 	$('#asset-type').text(this.children[0].text).append('<span class="caret"></span>');
+	var comment = this.children[0].text != '不動產' ? '根據"服兵役役男家屬生活扶助實施辦法" <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule3" target="_blank">第3條</a> 全家人口存款本金、投資及有價證券按面額計算。' : '根據"服兵役役男家屬生活扶助實施辦法" <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule3" target="_blank">第3條</a> ...但家屬之自用住宅（含該基地）及未產生經濟效益之土地不列入。'
+	$($(this).closest('div.row').children()[1]).html('<small>' + comment + '</small>');
 });
 
 $('#country-option li').click(function(){
 	$('#country-value').text(this.children[0].text).append('<span class="caret"></span>');
+
+	var filename = '';
+	switch (this.children[0].text) {
+		case '桃園市':
+			filename = 'taoyuan.json';
+			break;
+	}
+
+	$.getJSON("./data/" + filename, function(data) {
+		$('#lowestcost').text(data['lowestcost']);
+		$('#basicsalary').text(data['basicsalary']);
+		$('#housevalue').val(data['housevalue']);
+		$($(this).closest('div.row').children()[1]).fadeIn('slow');
+	});
 });
 
 $('#addmember').click(function() {
+	var basicsalary = $('#basicsalary').text();
+	if (basicsalary == '') {
+		alert('請先選擇縣市別！');
+		return false;
+	}
+
 	// validation
 	var member = $('#member-value').text();
 	if (member == '稱謂') {
@@ -87,14 +109,13 @@ $('#addmember').click(function() {
 						break;
 				}
 			} else {
-				// TODO: 利用變數取代基本工資
 				comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule7" target="_blank">第7條</a> 役男家屬具有工作能力而未就業者，鄉 (鎮、市、區) 公所應列冊送當地公營職業訓練機構或國民就業輔導單位協助就業，使其自行營生。"，應以基本工資每月$19273核算。';
-				salary = 19273 * 12;
+				salary = parseInt(basicsalary * 12)
 			}
 		}
-	} else if (salary < 19273 * 12) { // TODO: 利用變數取代基本工資
+	} else if (salary < parseInt(basicsalary) * 12) {
 		comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule4" target="_blank">第4條</a> 第一款 以當年度各行職業薪資證明之實際所得計算；無薪資證明者，依最近一年度之財稅資料所列工作收入核算。但最近一年之財稅資料低於基本工資時，以基本工資核算。';
-		salary = 19273 * 12;
+		salary = parseInt(basicsalary) * 12;
 	}
 
 	// append to table
@@ -170,7 +191,32 @@ $('#printpage').click(function() {
 
 $('#test').click(function() {
 	$.getJSON("./data/standard.json", function(data) {
-		alert(data);
+		var numberOfMember = $('#family tbody>tr').length;
+		var sumasset1 = parseInt($('#sumasset1').text());
+
+		if (sumasset1 > 2500000 + ((numberOfMember - 1) * 250000)) {
+			$('#result').text('動產已超過限額，不符合扶助規定。');
+			return ;
+		}
+
+		if (sumasset2 > parseInt($('#housevalue').text())) {
+			$('#result').text('不動產已超過限額，不符合扶助規定。');
+			return ;
+		}
+
+		var expense = parseInt($('lowestcost').text()) * 12 * numberOfMember;
+		var lifehelpratio = parseInt($('#sumsalary').text()) * 100 / expense;
+
+		var maxHelp = numberOfMember > 4 ? 4 : numberOfMember;
+		if (lifehelpratio > parseInt(data['C'])) {
+			$('#result').text('全戶收支比已達當地最低生活費標準以上，不符合扶助規定。')
+		} else if (lifehelpratio > parseInt(data['B']) {
+			$('#result').text('全戶收支比為' + lifehelpratio + '%，核列為丙級' + maxHelp + '口。');
+		} else if (lifehelpratio > parseInt(data['A'])) {
+			$('#result').text('全戶收支比為' + lifehelpratio + '%，核列為乙級' + maxHelp + '口。');
+		} else if (lifehelpratio > 0) {
+			$('#result').text('全戶收支比為' + lifehelpratio + '%，核列為甲級' + maxHelp + '口。');
+		}
 	});
 });
 
@@ -221,11 +267,20 @@ function totalSalary() {
 }
 
 function totalAsset() {
-	var sum = 0;
+	var sum1 = 0;
+	var sum2 = 0;
 	$('#allasset tbody').find('tr').each(function() {
 		if (!isNaN($(this.cells[1]).text())) {
-			sum += parseInt($(this.cells[1]).text());
+			switch ($(this.cells[0]).text()) {
+				case '動產':
+					sum1 += parseInt($(this.cells[1]).text());
+					break;
+				case '不動產':
+					sum2 += parseInt($(this.cells[1]).text());
+					break;
+			}
 		}
 	});
-	$('#sumasset').text(sum);
+	$('#sumasset1').text(sum1);
+	$('#sumasset2').text(sum2);
 }
