@@ -39,8 +39,8 @@ $('#country-option li').click(function(){
 		$('#lowestcost').text(data['lowestcost']);
 		$('#basicsalary').text(data['basicsalary']);
 		$('#housevalue').val(data['housevalue']);
-		$($(this).closest('div.row').children()[1]).fadeIn('slow');
 	});
+	$($(this).closest('div.row').children()[2]).fadeIn('slow');
 });
 
 $('#addmember').click(function() {
