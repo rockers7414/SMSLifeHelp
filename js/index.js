@@ -33,6 +33,9 @@ $('#country-option li').click(function(){
 		case '桃園市':
 			filename = 'taoyuan.json';
 			break;
+		case '台北市':
+			filename = 'taipei.json';
+			break;
 	}
 
 	$.getJSON("./data/" + filename, function(data) {
