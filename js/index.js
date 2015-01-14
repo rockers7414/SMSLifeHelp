@@ -206,7 +206,7 @@ $('#test').click(function() {
 		}
 
 		var expense = parseInt($('#lowestcost').text()) * 12 * numberOfMember;
-		var lifehelpratio = parseInt($('#sumsalary').text()) * 100 / expense;
+		var lifehelpratio = Math.round(parseInt($('#sumsalary').text()) * 100 / expense);
 
 		var maxHelp = numberOfMember > 4 ? 4 : numberOfMember;
 		if (lifehelpratio > parseInt(data['C'])) {
