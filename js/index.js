@@ -33,8 +33,26 @@ $('#country-option li').click(function(){
 		case '桃園市':
 			filename = 'taoyuan.json';
 			break;
-		case '台北市':
+		case '臺北市':
 			filename = 'taipei.json';
+			break;
+		case '新北市':
+			filename = 'newtaipei.json';
+			break;
+		case '臺中市':
+			filename = 'taichung.json';
+			break;
+		case '臺南市':
+			filename = 'tainan.json';
+			break;
+		case '高雄市':
+			filename = 'kaohsiung.json';
+			break;
+		case '台灣省':
+			filename = 'taiwan.json';
+			break;
+		case '金門縣/連江縣':
+			filename = 'kinmen_matsu.json';
 			break;
 	}
 
