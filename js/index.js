@@ -193,6 +193,7 @@ $('#test').click(function() {
 	$.getJSON("./data/standard.json", function(data) {
 		var numberOfMember = $('#family tbody>tr').length;
 		var sumasset1 = parseInt($('#sumasset1').text());
+		var sumasset2 = parseInt($('#sumasset2').text());
 
 		if (sumasset1 > 2500000 + ((numberOfMember - 1) * 250000)) {
 			$('#result').text('動產已超過限額，不符合扶助規定。');
@@ -204,7 +205,7 @@ $('#test').click(function() {
 			return ;
 		}
 
-		var expense = parseInt($('lowestcost').text()) * 12 * numberOfMember;
+		var expense = parseInt($('#lowestcost').text()) * 12 * numberOfMember;
 		var lifehelpratio = parseInt($('#sumsalary').text()) * 100 / expense;
 
 		var maxHelp = numberOfMember > 4 ? 4 : numberOfMember;
