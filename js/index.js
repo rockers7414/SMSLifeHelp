@@ -56,12 +56,33 @@ $('#country-option li').click(function(){
 			break;
 	}
 
-	$.getJSON("./data/" + filename, function(data) {
-		$('#lowestcost').text(data['lowestcost']);
-		$('#basicsalary').text(data['basicsalary']);
-		$('#housevalue').val(data['housevalue']);
-	});
+	// $.getJSON("./data/" + filename, function(data) {
+	// 	$('#lowestcost').text(data['lowestcost']);
+	// 	$('#basicsalary').text(data['basicsalary']);
+	// 	$('#housevalue').val(data['housevalue']);
+	// });
+	$.ajax({
+		dataType: "json",
+  		url: "./data/" + filename,
+  		async: false,
+  		success: function(data) {
+  			$('#lowestcost').text(data['lowestcost']);
+			$('#basicsalary').text(data['basicsalary']);
+			$('#housevalue').val(data['housevalue']);
+  		}
+	})
+
 	$($(this).closest('div.row').children()[2]).fadeIn('slow');
+
+	$('#family tbody > tr').each(function() {
+		var rawsalary = parseInt($(this.children[3].children[0]).val());
+		if (rawsalary < parseInt($('#basicsalary').text())) {
+			$(this.children[3]).text(parseInt($('#basicsalary').text()) * 12);
+		}
+	});
+
+	if ($('#family tbody > tr').length != 0)
+		totalSalary();
 });
 
 $('#addmember').click(function() {
@@ -143,7 +164,7 @@ $('#addmember').click(function() {
 	var row = $('<tr' + (comment == '' ? '' : ' class="info"') + '><td>' + member + '</td>'
 					+ '<td>' + age + '</td>'
 					+ '<td>' + job + '</td>'
-					+ '<td>' + salary + '</td>'
+					+ '<td>' + salary + '<input type="hidden" value="' + $('#salary-value').val() + '"></td>'
 					+ '<td>' + (other != '' ? '<span class="glyphicon glyphicon-ok" aria-hidden="true"></span>' : '') + '</td>'
 					+ '<td>' + comment + '</td>'
 					+ '<td><button type="button" class="btn btn-default btn-xs" aria-label="Left Align" id="removemember"><span class="glyphicon glyphicon-remove" aria-hidden="true"></span></button></td></tr>').hide();
@@ -212,8 +233,13 @@ $('#printpage').click(function() {
 });
 
 $('#test').click(function() {
+	if ($('#family tbody > tr').length == 0) {
+		$('#result').text('無任何家庭成員，無法核算。');
+		return false;
+	}
+
 	$.getJSON("./data/standard.json", function(data) {
-		var numberOfMember = $('#family tbody>tr').length;
+		var numberOfMember = $('#family tbody > tr').length;
 		var sumasset1 = parseInt($('#sumasset1').text());
 		var sumasset2 = parseInt($('#sumasset2').text());
 
