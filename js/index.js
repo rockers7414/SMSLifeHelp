@@ -189,6 +189,7 @@ $('#addasset').click(function() {
 
 	// clear input area
 	clearAssetValue();
+	$($(this).closest('div.row').children()[1]).text('');
 
 	// summary
 	totalAsset();
