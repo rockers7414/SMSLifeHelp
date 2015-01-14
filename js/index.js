@@ -56,11 +56,6 @@ $('#country-option li').click(function(){
 			break;
 	}
 
-	// $.getJSON("./data/" + filename, function(data) {
-	// 	$('#lowestcost').text(data['lowestcost']);
-	// 	$('#basicsalary').text(data['basicsalary']);
-	// 	$('#housevalue').val(data['housevalue']);
-	// });
 	$.ajax({
 		dataType: "json",
   		url: "./data/" + filename,
@@ -81,8 +76,10 @@ $('#country-option li').click(function(){
 		}
 	});
 
-	if ($('#family tbody > tr').length != 0)
+	if ($('#family tbody > tr').length != 0) {
 		totalSalary();
+		$('#test').trigger('click');
+	}
 });
 
 $('#addmember').click(function() {
