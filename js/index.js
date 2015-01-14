@@ -77,7 +77,7 @@ $('#country-option li').click(function(){
 	$('#family tbody > tr').each(function() {
 		var rawsalary = parseInt($(this.children[3].children[0]).val());
 		if (rawsalary < parseInt($('#basicsalary').text())) {
-			$(this.children[3]).text(parseInt($('#basicsalary').text()) * 12);
+			$(this.children[3]).text(parseInt($('#basicsalary').text()) * 12).append('<input type="hidden" value="' + rawsalary + '">');
 		}
 	});
 
