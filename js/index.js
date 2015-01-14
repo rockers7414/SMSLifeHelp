@@ -85,7 +85,7 @@ $('#addmember').click(function() {
 		if (job == '在學') {
 			comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule6" target="_blank">第6條</a> 第五款 就讀大學校院博士班、空中大學、空中專科、進修補習學校、遠距教學以外之在學學生，致不能工作。"，不計算其工作收入。';
 		} else if (job == '無業') {
-			if (age > 55 || age < 16) {
+			if (age >= 55 || age <= 16) {
 				comment = '根據"服兵役役男家屬生活扶助實施辦法 <a href="http://rockers7414.github.io/SMSLifeHelp/lifehelp.html#rule6" target="_blank">第6條</a> 第一款 五十五歲以上或十六歲以下而無固定收入。"，不計算其工作收入。';
 			} else if (other != '') {
 				switch (other.substring(0, 4)) {
