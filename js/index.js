@@ -158,24 +158,14 @@ $('body').delegate('#removeasset', 'click', function() {
 });
 
 $('#printpage').click(function() {
-	var mode = "popup";
-	var close = false;
-	var print = "";
-	var extraCss = "";
-
-	$(".PrintArea").each(function(){
-	    print += (print.length > 0 ? "," : "") + "div.PrintArea." + $(this).val();
-	});
-
-	var options = {
+	$('div.PrintArea').printArea({
 		mode: 'popup',
-		close: false,
-		extraCss: '',
-		retainAttr: [ "class", "id", "style" ],
-		extraHead: ''
-	};
-
-	$(print).printArea(options);
+		popHt: screen.height * 5 / 6,
+		popWd: screen.width * 5 / 6,
+		popX: screen.width / 12,
+		popY: 30,
+		close: 'false'
+	});
 });
 
 $('#test').click(function() {
