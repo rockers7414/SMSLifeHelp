@@ -210,7 +210,7 @@ $('#test').click(function() {
 		var maxHelp = numberOfMember > 4 ? 4 : numberOfMember;
 		if (lifehelpratio > parseInt(data['C'])) {
 			$('#result').text('全戶收支比已達當地最低生活費標準以上，不符合扶助規定。')
-		} else if (lifehelpratio > parseInt(data['B']) {
+		} else if (lifehelpratio > parseInt(data['B'])) {
 			$('#result').text('全戶收支比為' + lifehelpratio + '%，核列為丙級' + maxHelp + '口。');
 		} else if (lifehelpratio > parseInt(data['A'])) {
 			$('#result').text('全戶收支比為' + lifehelpratio + '%，核列為乙級' + maxHelp + '口。');
