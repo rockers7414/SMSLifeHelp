@@ -1,4 +1,4 @@
-$('#member-option li').click(function() {
+﻿$('#member-option li').click(function() {
 	$('#member-value').text(this.children[0].text).append('<span class="caret"></span>');
 });
 
@@ -260,7 +260,7 @@ $('#test').click(function() {
 			$('#result').text('全戶收支比為' + lifehelpratio + '%，核列為丙級' + maxHelp + '口。');
 		} else if (lifehelpratio > parseInt(data['A'])) {
 			$('#result').text('全戶收支比為' + lifehelpratio + '%，核列為乙級' + maxHelp + '口。');
-		} else if (lifehelpratio > 0) {
+		} else if (lifehelpratio >= 0) {
 			$('#result').text('全戶收支比為' + lifehelpratio + '%，核列為甲級' + maxHelp + '口。');
 		}
 	});
