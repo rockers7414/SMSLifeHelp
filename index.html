@@ -33,6 +33,7 @@
 						<div class="input-group-btn">
 							<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-expanded="false" id="country-value">請先選擇縣市別<span class="caret"></span></button>
 							<ul class="dropdown-menu" role="menu" id="country-option">
+								<li><a href="#">自訂</a></li>
 								<li><a href="#">臺北市</a></li>
 								<li><a href="#">新北市</a></li>
 								<li><a href="#">桃園市</a></li>
@@ -46,11 +47,15 @@
 					</div>
 				</div>
 				<div class="col-xs-8 PrintArea" style="display:none;">
-					<input type="hidden" id="housevalue">
-					<ul class="list-unstyled" style="margin:0;">
+					<input type="hidden" id="housevalue"></input>
+					<div class="row">
+						<div class="col-xs-6">最低生活費每人每月為：<input type="text" id="lowestcost" style="width:100px"></input> 元</div>
+						<div class="col-xs-6">每月基本工資為：<input type="text" id="basicsalary" style="width:100px"></input> 元</div>
+					</div>
+					<!-- <ul class="list-unstyled" style="margin:0;">
 						<li><small>104年度最低生活費每人每月為<span id="lowestcost"></span>元</small></li>
 						<li><small>104年度每月基本工資為<span id="basicsalary"></span>元</small></li>
-					</ul>
+					</ul> -->
 				</div>
 			</div>
 			<div class="panel panel-default">

@@ -54,18 +54,23 @@ $('#country-option li').click(function(){
 		case '金門縣/連江縣':
 			filename = 'kinmen_matsu.json';
 			break;
+		default:
+			filename = '';
+			break;
 	}
 
-	$.ajax({
-		dataType: "json",
-  		url: "./data/" + filename,
-  		async: false,
-  		success: function(data) {
-  			$('#lowestcost').text(data['lowestcost']);
-			$('#basicsalary').text(data['basicsalary']);
-			$('#housevalue').val(data['housevalue']);
-  		}
-	})
+	if (filename != '') {
+		$.ajax({
+			dataType: "json",
+			url: "./data/" + filename,
+			async: false,
+			success: function(data) {
+				$('#lowestcost').text(data['lowestcost']);
+				$('#basicsalary').text(data['basicsalary']);
+				$('#housevalue').val(data['housevalue']);
+			}
+		});
+	}
 
 	$($(this).closest('div.row').children()[2]).fadeIn('slow');
 
