@@ -76,8 +76,8 @@ $('#country-option li').click(function(){
 
 	$('#family tbody > tr').each(function() {
 		var rawsalary = parseInt($(this.children[3].children[0]).val());
-		if (rawsalary < parseInt($('#basicsalary').text())) {
-			$(this.children[3]).text(parseInt($('#basicsalary').text()) * 12).append('<input type="hidden" value="' + rawsalary + '">');
+		if (rawsalary < parseInt($('#basicsalary').val())) {
+			$(this.children[3]).text(parseInt($('#basicsalary').val()) * 12).append('<input type="hidden" value="' + rawsalary + '">');
 		}
 	});
 
@@ -88,7 +88,7 @@ $('#country-option li').click(function(){
 });
 
 $('#addmember').click(function() {
-	var basicsalary = $('#basicsalary').text();
+	var basicsalary = $('#basicsalary').val();
 	if (basicsalary == '') {
 		alert('請先選擇縣市別！');
 		return false;
@@ -255,7 +255,7 @@ $('#test').click(function() {
 			return ;
 		}
 
-		var expense = parseInt($('#lowestcost').text()) * 12 * numberOfMember;
+		var expense = parseInt($('#lowestcost').val()) * 12 * numberOfMember;
 		var lifehelpratio = Math.round(parseInt($('#sumsalary').text()) * 100 / expense);
 
 		var maxHelp = numberOfMember > 4 ? 4 : numberOfMember;
