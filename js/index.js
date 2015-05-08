@@ -65,8 +65,8 @@ $('#country-option li').click(function(){
 			url: "./data/" + filename,
 			async: false,
 			success: function(data) {
-				$('#lowestcost').text(data['lowestcost']);
-				$('#basicsalary').text(data['basicsalary']);
+				$('#lowestcost').val(data['lowestcost']);
+				$('#basicsalary').val(data['basicsalary']);
 				$('#housevalue').val(data['housevalue']);
 			}
 		});
