@@ -28,49 +28,40 @@ $('#asset-option li').click(function() {
 $('#country-option li').click(function(){
 	$('#country-value').text(this.children[0].text).append('<span class="caret"></span>');
 
-	var filename = '';
+	var l, b, h = 3200000;
 	switch (this.children[0].text) {
 		case '桃園市':
-			filename = 'taoyuan.json';
+			l = 12821; b = 19273;
 			break;
 		case '臺北市':
-			filename = 'taipei.json';
+			l = 14794; b = 19273;
 			break;
 		case '新北市':
-			filename = 'newtaipei.json';
+			l = 12840; b = 19273;
 			break;
 		case '臺中市':
-			filename = 'taichung.json';
+			l = 11860; b = 19273;
 			break;
 		case '臺南市':
-			filename = 'tainan.json';
+			l = 10869; b = 19273;
 			break;
 		case '高雄市':
-			filename = 'kaohsiung.json';
+			l = 12485; b = 19273;
 			break;
 		case '台灣省':
-			filename = 'taiwan.json';
+			l = 10869; b = 19273;
 			break;
 		case '金門縣/連江縣':
-			filename = 'kinmen_matsu.json';
+			l = 9769; b = 19273;
 			break;
 		default:
-			filename = '';
+			l = 0; b = 0;
 			break;
 	}
 
-	if (filename != '') {
-		$.ajax({
-			dataType: "json",
-			url: "./data/" + filename,
-			async: false,
-			success: function(data) {
-				$('#lowestcost').val(data['lowestcost']);
-				$('#basicsalary').val(data['basicsalary']);
-				$('#housevalue').val(data['housevalue']);
-			}
-		});
-	}
+	$('#lowestcost').val(l);
+	$('#basicsalary').val(b);
+	$('#housevalue').val(h);
 
 	$($(this).closest('div.row').children()[2]).fadeIn('slow');
 
